@@ -10,5 +10,6 @@ cargo watch -q -c -w src/ -x run
 cargo watch -q -c -w tests/ -x "test -q quick_dev -- --nocapture"
 ```
 
-- [x] [query parameter](https://github.com/krrishnax/axum-rust/pull/1)
-- [x] [path parameter](https://github.com/krrishnax/axum-rust/pull/2)
+## axum steps:
+- [x] 1 [query parameter](https://github.com/krrishnax/axum-rust/pull/1)
+- [x] 2 [path parameter](https://github.com/krrishnax/axum-rust/pull/2)
