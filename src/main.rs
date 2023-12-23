@@ -1,13 +1,25 @@
 #![allow(unused)] // For beginning only.
 
-use axum::{Router, routing::{get, get_service}, response::{Html, IntoResponse}, extract::{Query, Path}};
+use axum::{
+    Router, 
+    routing::{get, get_service}, 
+    response::{Html, IntoResponse, Response}, 
+    extract::{Query, Path}, middleware
+};
 use serde::Deserialize;
 use tower_http::services::ServeDir;
+
+mod error;
+pub use self::error::{Error, Result};
+
+mod web;
 
 #[tokio::main]
 async fn main() {
     let routes_all = Router::new()
         .merge(routes_hello())
+        .merge(web::routes_login::routes())
+        .layer(middleware::map_response(main_response_mapper))
         .fallback_service(routes_static());
 
     // region:   --- Start Server
@@ -20,6 +32,13 @@ async fn main() {
     axum::serve(listener, routes_all)
         .await
         .unwrap()
+}
+
+async fn main_response_mapper(res: Response) -> Response {
+    println!("->> {:<12} - main_response_mapper", "RES_MAPPER");
+
+    println!();
+    res
 }
 
 // e.g: `http://localhost:8080/src/main.rs`
