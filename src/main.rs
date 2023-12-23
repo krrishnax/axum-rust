@@ -1,11 +1,13 @@
 #![allow(unused)] // For beginning only.
 
-use axum::{Router, routing::get, response::{Html, IntoResponse}, extract::Query};
+use axum::{Router, routing::get, response::{Html, IntoResponse}, extract::{Query, Path}};
 use serde::Deserialize;
 
 #[tokio::main]
 async fn main() {
-    let routes_hello = Router::new().route("/hello", get(handler_hello));
+    let routes_hello = Router::new()
+        .route("/hello", get(handler_hello))
+        .route("/hello2/:name", get(handler_hello2));
 
     // region:   --- Start Server
     let listener = tokio::net::TcpListener::bind("127.0.0.1:8080")
@@ -32,6 +34,12 @@ async fn handler_hello(Query(params): Query<HelloParams>) -> impl IntoResponse {
     let name = params.name
         .as_deref()
         .unwrap_or("World!");
+    Html(format!("Hello <strong>{name}</strong>"))
+}
+
+async fn handler_hello2(Path(name): Path<String>) -> impl IntoResponse {
+    println!("->> {:<12} - handler_hello2 - {name:?}", "HANDLER");
+
     Html(format!("Hello <strong>{name}</strong>"))
 }
 
