@@ -1,6 +1,7 @@
 #![allow(unused)] // For beginning only.
 
-use axum::{Router, routing::get, response::{Html, IntoResponse}};
+use axum::{Router, routing::get, response::{Html, IntoResponse}, extract::Query};
+use serde::Deserialize;
 
 #[tokio::main]
 async fn main() {
@@ -19,10 +20,19 @@ async fn main() {
 }
 
 // region:   --- Handler Hello
-async fn handler_hello() -> impl IntoResponse {
-    println!("->> {:<12} - handler_hello", "HANDLER");
+#[derive(Debug, Deserialize)]
+struct HelloParams {
+    name: Option<String>
+}
 
-    Html("Hello <strong>World!!!</strong>")
+// e.g: `/hello?name=Krrishna`
+async fn handler_hello(Query(params): Query<HelloParams>) -> impl IntoResponse {
+    println!("->> {:<12} - handler_hello - {params:?}", "HANDLER");
+
+    let name = params.name
+        .as_deref()
+        .unwrap_or("World!");
+    Html(format!("Hello <strong>{name}</strong>"))
 }
 
 // cargo watch -q -c -w src/ -x run (backend)
