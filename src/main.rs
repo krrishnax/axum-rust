@@ -14,6 +14,7 @@ mod error;
 pub use self::error::{Error, Result};
 
 mod web;
+mod model;
 
 #[tokio::main]
 async fn main() {
@@ -29,9 +30,9 @@ async fn main() {
         .await
         .unwrap();
 
-    println!("->> LISTENING on {:?}\n", listener);
+    println!("->> LISTENING on {:?}\n", listener.local_addr().unwrap());
 
-    axum::serve(listener, routes_all)
+    axum::serve(listener, routes_all.into_make_service())
         .await
         .unwrap()
 }
