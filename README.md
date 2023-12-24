@@ -17,3 +17,5 @@ cargo watch -q -c -w tests/ -x "test -q quick_dev -- --nocapture"
 - [x] 4 [first login api](https://github.com/krrishnax/axum-rust/pull/4)
 - [x] 5 [login auth-token cookies](https://github.com/krrishnax/axum-rust/pull/5)
 - [x] 6 [REST api - Mock model/store](https://github.com/krrishnax/axum-rust/pull/6)
+- [x] 7 [CRUD - REST Api](https://github.com/krrishnax/axum-rust/pull/7)
+- [x] 8 [middleware](https://github.com/krrishnax/axum-rust/pull/8)
