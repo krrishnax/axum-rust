@@ -21,6 +21,7 @@ async fn quick_dev() -> Result<()> {
     );
 
     req_login.await?.print().await?;  // comment and uncomment this line to test middlewares working or not 
+    // and same for ctx extractor
 
     let req_create_ticket = hc.do_post(
         "/api/tickets", 
