@@ -24,3 +24,4 @@ cargo watch -q -c -w tests/ -x "test -q quick_dev -- --nocapture"
 - [x] 11 [Ctx in REST API](https://github.com/krrishnax/axum-rust/pull/11)
 - [x] 12 [Ctx Resolver - for optimization](https://github.com/krrishnax/axum-rust/pull/12)
 - [x] 13 [Errors - for client and server](https://github.com/krrishnax/axum-rust/pull/13)
+- [x] 14 [Server Log line](https://github.com/krrishnax/axum-rust/pull/14)

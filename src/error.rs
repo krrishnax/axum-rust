@@ -1,8 +1,10 @@
 use axum::{response::{IntoResponse, Response}, http::StatusCode};
+use serde::Serialize;
 
 pub type Result<T> = core::result::Result<T, Error>;
 
-#[derive(Debug, Clone, strum_macros::AsRefStr)]
+#[derive(Clone, Debug, Serialize, strum_macros::AsRefStr)]
+#[serde(tag = "type", content = "data")]
 pub enum Error {
     LoginFail,
     // -- Model errors.
@@ -12,6 +14,19 @@ pub enum Error {
     AuthFailTokenWrongFormat,
     AuthFailCtxNotInRequestExt,
 }
+
+// region:    --- Error Boilerplate
+impl core::fmt::Display for Error {
+	fn fmt(
+		&self,
+		fmt: &mut core::fmt::Formatter,
+	) -> core::result::Result<(), core::fmt::Error> {
+		write!(fmt, "{self:?}")
+	}
+}
+
+impl std::error::Error for Error {}
+// endregion: --- Error Boilerplate
 
 impl IntoResponse for Error {
     fn into_response(self) -> Response {
