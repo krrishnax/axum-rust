@@ -20,3 +20,6 @@ cargo watch -q -c -w tests/ -x "test -q quick_dev -- --nocapture"
 - [x] 7 [CRUD - REST Api](https://github.com/krrishnax/axum-rust/pull/7)
 - [x] 8 [middleware](https://github.com/krrishnax/axum-rust/pull/8)
 - [x] 9 [token parsing](https://github.com/krrishnax/axum-rust/pull/9)
+- [x] 10 [Ctx Extractor - using async trait](https://github.com/krrishnax/axum-rust/pull/10)
+- [x] 11 [Ctx in REST API](https://github.com/krrishnax/axum-rust/pull/11)
+- [x] 12 [Ctx Resolver](https://github.com/krrishnax/axum-rust/pull/12)
