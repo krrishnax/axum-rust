@@ -4,8 +4,9 @@ use axum::{
     Router, 
     routing::{get, get_service}, 
     response::{Html, IntoResponse, Response}, 
-    extract::{Query, Path}, middleware, Json
+    extract::{Query, Path}, middleware, Json, http::{Uri, Method}
 };
+use ctx::Ctx;
 use serde::Deserialize;
 use serde_json::json;
 use tower_cookies::CookieManagerLayer;
@@ -13,12 +14,13 @@ use tower_http::services::ServeDir;
 use uuid::Uuid;
 
 mod error;
-use crate::model::ModelController;
+use crate::{model::ModelController, log::log_request};
 pub use self::error::{Error, Result};
 
 mod web;
 mod model;
 mod ctx;
+mod log;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -55,7 +57,12 @@ async fn main() -> Result<()> {
     Ok(())
 }
 
-async fn main_response_mapper(res: Response) -> Response {
+async fn main_response_mapper(
+    ctx: Option<Ctx>,
+    uri: Uri,
+    req_method: Method,
+    res: Response
+) -> Response {
     println!("->> {:<12} - main_response_mapper", "RES_MAPPER");
     let uuid = Uuid::new_v4();
 
@@ -81,8 +88,9 @@ async fn main_response_mapper(res: Response) -> Response {
 
         });
 
-    // TODO: Build and log the server log line.
-    println!("    ->> server log line = {uuid} - Error: {service_error:?}");
+    // Build and log the server log line.
+    let client_error = client_status_error.unzip().1;
+    log_request(uuid, req_method, uri, ctx, service_error, client_error).await;
 
     println!();
     error_response.unwrap_or(res)
