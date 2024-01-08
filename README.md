@@ -9,6 +9,10 @@ cargo watch -q -c -w src/ -x run
 ```sh
 cargo watch -q -c -w tests/ -x "test -q quick_dev -- --nocapture"
 ```
+- Note: If you haven't already, make sure to install Cargo Watch.
+```sh
+cargo install cargo-watch
+```
 
 ## axum steps:
 - [x] 1 [query parameter](https://github.com/krrishnax/axum-rust/pull/1)
