@@ -13,7 +13,7 @@ cargo watch -q -c -w tests/ -x "test -q quick_dev -- --nocapture"
 ```sh
 cargo install cargo-watch
 ```
-
+<!--
 ## axum steps:
 - [x] 1 [query parameter](https://github.com/krrishnax/axum-rust/pull/1)
 - [x] 2 [path parameter](https://github.com/krrishnax/axum-rust/pull/2)
@@ -29,3 +29,4 @@ cargo install cargo-watch
 - [x] 12 [Ctx Resolver - for optimization](https://github.com/krrishnax/axum-rust/pull/12)
 - [x] 13 [Errors - for client and server](https://github.com/krrishnax/axum-rust/pull/13)
 - [x] 14 [Server Log line](https://github.com/krrishnax/axum-rust/pull/14)
+-->
